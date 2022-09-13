@@ -18,6 +18,7 @@
     "react-native": "0.69.5",
     "react-native-dom-parser": "^1.5.3",
     "react-native-html-parser": "^0.1.0",
+    "react-native-xml2js": "^1.0.3",
     "xmldom": "^0.6.0"
   },
   "devDependencies": {

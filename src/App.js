@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet, Text, ListViewBase} from 'react-native';
 import SearchBox from './components/SearchBox';
 import { DOMParser } from 'xmldom';
 
 const App = () => {
     const [word, setWord] = useState('');
-    const [station, setStation] = useState({});
+    const [station, setStation] = useState([]);
 
     const _handleTextChange = text => {
         setWord(text);
@@ -16,20 +16,25 @@ const App = () => {
             var xhr = new XMLHttpRequest();
             const API_KEY = 'UkgvlYP2LDE6M%2Blz55Fb0XVdmswp%2Fh8uAUZEzUbby3OYNo80KGGV1wtqyFG5IY0uwwF0LtSDR%2FIwPGVRJCnPyw%3D%3D';
             const url = 'http://apis.data.go.kr/6410000/busstationservice/getBusStationList'; /*URL*/
-            const result = encodeURIComponent(word);
             var queryParams = `${url}?serviceKey=${API_KEY}&keyword=${word}`;
             xhr.open('GET', queryParams);
             xhr.onreadystatechange = function () {
               if (this.readyState == 4) {
-                console.log(this.responseText);
-                var xmlDoc = new DOMParser().parseFromString(this.responseText, 'text/xml');
-                console.log("success?");
-                let value = xmlDoc.getElementsByTagName("stationName")[0].textContent;
-                console.log(value);
-                setStation(value);
+                const parseString = require('xml2js').parseString;
+                parseString(this.responseText, (err, result) => {
+                  if(err !== null) {
+                    console.log("Error : ", err)
+                    return
+                  }
+                  console.log(JSON.stringify(result.response.msgBody[0]));
+                  result = JSON.stringify(result.response.msgBody[0]);
+                  setStation(JSON.parse(result));
+                  console.log("station: ", station);
+                  return station;
+                })
               }
             }
-          xhr.send('');
+          xhr.send(station);
           }
           catch(err){
             alert(err);
@@ -52,10 +57,7 @@ const App = () => {
             onSubmitEditing={_addStation}
             onBlur={_onBlur}
             />
-            {
-              Object.keys(station).length !== 0 && (
-                <Text className="stationName">{station}</Text>
-              )}
+            <Text>{station}</Text>
         </View>
     );
 };

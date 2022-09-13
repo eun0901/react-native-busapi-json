@@ -1,0 +1,38 @@
+{
+    "response":{
+        "comMsgHeader":[""],
+        "msgHeader":[
+            {
+                "queryTime":["2022-09-12 03:05:19.495"],
+                "resultCode":["0"],
+                "resultMessage":["정상적으로 처리되었습니다."]
+            }
+        ],
+        "msgBody":[
+            {
+                "busStationList":[
+                    {
+                        "centerYn":["N"],
+                        "districtCd":["2"],
+                        "mobileNo":[" 03095"],
+                        "regionName":["수원"],
+                        "stationId":["202000054"],
+                        "stationName":["여권민원실.풍림아파트"],
+                        "x":["127.0330833"],
+                        "y":["37.28745"]
+                    },
+                    {
+                        "centerYn":["N"],
+                        "districtCd":["2"],
+                        "mobileNo":[" 03096"],
+                        "regionName":["수원"],
+                        "stationId":["202000036"],
+                        "stationName":["여권민원실.풍림아파트"],
+                        "x":["127.0335"],
+                        "y":["37.2875333"]
+                    }
+                ]
+            }
+        ]
+    }
+}
